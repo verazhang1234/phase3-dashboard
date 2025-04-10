@@ -13,11 +13,11 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// 视图引擎设置
+
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
-// 中间件
+// middlewares
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -34,7 +34,7 @@ app.use(
   })
 );
 
-// 📌 模拟登录页面
+// login page
 app.get("/login", (req, res) => {
   res.send(`
     <h2>Login</h2>
@@ -63,7 +63,7 @@ app.post("/login", (req, res) => {
   }
 });
 
-// 📌 仪表盘页面（需要登录）
+// dashboard page
 app.get("/dashboard", (req, res) => {
   if (!req.session.user) {
     return res.redirect("/login");
@@ -79,7 +79,7 @@ app.get("/dashboard", (req, res) => {
   });
 });
 
-// 📌 提交用户更新表单
+// update profile page
 app.post(
   "/update-profile",
   profileValidationRules,
@@ -90,7 +90,7 @@ app.post(
     if (!req.session.user) return res.redirect("/login");
 
     if (!errors.isEmpty()) {
-      // 如果有验证错误，重新渲染页面并显示错误
+     
       const users = JSON.parse(fs.readFileSync("./data/users.json"));
       const currentUser = users.find((u) => u.id === userId);
       return res.render("dashboard", {
@@ -101,7 +101,7 @@ app.post(
 
     let { name, email, bio } = req.body;
 
-    // 转义防止 XSS
+    // XSS
     name = escapeHtml(name);
     bio = escapeHtml(bio);
 
@@ -123,7 +123,7 @@ app.post(
   }
 );
 
-// 📌 登出
+// logout
 app.post("/logout", (req, res) => {
   req.session.destroy(() => {
     res.redirect("/login");

@@ -1,0 +1,15 @@
+[
+  {
+    "id": 1,
+    "name": "Alice Wang",
+    "email": {
+      "iv": "426685ba1b29f93c23a4c56e2c35d798",
+      "data": "a5ae50968fa3b5f6d7604b1c508ce934943188ce344a39066aa9f637807b78bb"
+    },
+    "bio": {
+      "iv": "426685ba1b29f93c23a4c56e2c35d798",
+      "data": "33fa89600691feb6a6ad544cdb977328"
+    },
+    "password": "placeholder"
+  }
+]
